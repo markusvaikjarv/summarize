@@ -5,6 +5,6 @@ A Linux CLI tool that can generate a summary on any topic based on Wikipedia ent
 To generate ~18kB binary: ```make summarize```<br/>
 To generate a debug binary with undefined behaviour and address sanitizer: ```make summarize_debug```<br/>
 Usage: ```./summarize TOPIC```<br/>
-To run summarize from any directory, add ```export PATH=/home/markus/Dev/summarize:$PATH``` to ```.bashrc```<br/>
+To run summarize from any directory, add ```export PATH=/home/username/path/to/summarize:$PATH``` to ```.bashrc```<br/>
 
 ![alt text](https://raw.githubusercontent.com/markusvaikjarv/summarize/master/screenshots/summarize.png)
