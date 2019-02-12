@@ -96,7 +96,7 @@ int main(int argc, char **argv) {
                 wiki_response + t[i + 1].start);
         
         if (strcmp(type_buffer, "disambiguation") == 0) {
-          goto DISAMBIGUOUS;
+          goto AMBIGUOUS;
         }
 
       }
@@ -140,7 +140,7 @@ NOT_FOUND:
 PARAMS_MISSING:
   printf("\x1b[31m Missing parameter \x1b[0m\n");
   exit(EXIT_FAILURE);
-DISAMBIGUOUS:
-  printf("\x1b[31m Too disambiguous, please specify \x1b[0m\n");
+AMBIGUOUS:
+  printf("\x1b[31m Too ambiguous, please specify \x1b[0m\n");
   exit(EXIT_FAILURE);
 }
