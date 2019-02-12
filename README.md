@@ -7,4 +7,4 @@ To generate a debug binary with undefined behaviour and address sanitizer: ```ma
 Usage: ```./summarize TOPIC```<br/>
 To run summarize from any directory, add ```export PATH=/home/username/path/to/summarize:$PATH``` to ```.bashrc```<br/>
 
-![alt text](https://raw.githubusercontent.com/markusvaikjarv/summarize/master/screenshots/summarize.png)
+![alt text](https://raw.githubusercontent.com/markusvaikjarv/summarize/master/screenshots/screenshot.png)
