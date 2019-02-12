@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
   CURLcode res;
   char *wiki_response = calloc(1, sizeof(char));
   int i;
-  int keys; //number of keys in the json root object
+  int keys; // number of keys in the json root object
   jsmn_parser p;
   jsmntok_t t[128]; // successful response from the API has around 93 tokens
   char subject[128];
@@ -78,7 +78,7 @@ int main(int argc, char **argv) {
     // parse the response
     jsmn_init(&p);
     keys = jsmn_parse(&p, wiki_response, strlen(wiki_response), t,
-                   sizeof(t) / sizeof(t[0]));
+                      sizeof(t) / sizeof(t[0]));
 
     if (keys < 0) {
       printf("Failed to parse JSON: %d\n", keys);
@@ -88,7 +88,20 @@ int main(int argc, char **argv) {
     // Loop over all keys of the root object
     for (i = 1; i < keys; i++) {
 
-      if (jsoneq(wiki_response, &t[i], "title") == 0) {
+      if (jsoneq(wiki_response, &t[i], "type") == 0) {
+        char type_buffer[128]; // creating type_buffer to ensure that the type
+                               // is not "disambiguation"
+        
+        sprintf(type_buffer, "%.*s", t[i + 1].end - t[i + 1].start,
+                wiki_response + t[i + 1].start);
+        
+        if (strcmp(type_buffer, "disambiguation") == 0) {
+          goto DISAMBIGUOUS;
+        }
+
+      }
+
+      else if (jsoneq(wiki_response, &t[i], "title") == 0) {
         char title_buffer[128]; // creating title_buffer to check ensure that
                                 // the title is not "Not found."
         sprintf(title_buffer, "%.*s", t[i + 1].end - t[i + 1].start,
@@ -126,5 +139,8 @@ NOT_FOUND:
   exit(EXIT_FAILURE);
 PARAMS_MISSING:
   printf("\x1b[31m Missing parameter \x1b[0m\n");
+  exit(EXIT_FAILURE);
+DISAMBIGUOUS:
+  printf("\x1b[31m Too disambiguous, please specify \x1b[0m\n");
   exit(EXIT_FAILURE);
 }
